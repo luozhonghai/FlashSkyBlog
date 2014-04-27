@@ -1,0 +1,39 @@
+body{
+	width: 900px;
+	margin: 15px auto;
+	font-family: "Times New Roman", Arial, "MS Trebuchet";
+}
+
+p{
+	margin: 0 0 15px;
+}
+
+p,li{
+	line-height: 20px;
+}
+
+header#page_header{
+	width: 100%;
+}
+
+section#posts{
+	float: left;
+	width: 70%;
+}
+
+section#sidebar{
+	float: left;
+	width: 25%;
+}
+
+footer#page_footer nav ul{
+	list-style:none;
+	margin: 0;
+	padding: 0;
+}
+
+footer#page_footer{
+	clear: both;
+    width: 100%;
+    text-align: center;
+}
