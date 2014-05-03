@@ -14,9 +14,13 @@ p,li{
 
 header#page_header{
 	width: 100%;
+	background-color: #A3B8CD;
+	color: #FFFFFF;
+	font-weight: normal;
 }
 
 section#posts{
+	position: relative;
 	float: left;
 	width: 70%;
 }
@@ -48,6 +52,7 @@ section#comments h3, section#postcomments h3{
 	color: #7f90a0;
 }
 
+
 input.text {
     width: 170px;
     margin: 5px 0 5px;
@@ -55,17 +60,24 @@ input.text {
 input.submit {
     margin-top: 10px;
     font-weight: bold;
+    font-family: "Microsoft YaHei";
 }
 
 
-footer#page_footer nav ul{
+header#page_header nav ul, footer#page_footer nav ul{
 	list-style:none;
-	margin: 0;
+	margin: 0 ;
 	padding: 0;
+}
+#page_header nav ul li{
+	display: inline;
+	padding: 0;
+	margin: 0 20px 0 0;
 }
 
 footer#page_footer{
 	clear: both;
     width: 100%;
     text-align: center;
+    margin-top: 100px;
 }
