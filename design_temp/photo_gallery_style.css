@@ -1,0 +1,27 @@
+ul.gallery {
+	list-style: none;
+	width: 70%;
+}
+
+ul.gallery li {
+	float: left;
+	margin: 6px;
+	width: 160px;
+	height: 160px;
+	background: #FFF;
+/*	border: 1px solid #AAA;*/
+}
+ul.gallery img{
+	width: 150px;
+	margin: 5px;
+	border: 0px;
+	margin-top: 23px;
+}
+ul.gallery a{
+	text-decoration: none;
+}
+ul.gallery span{
+	display: block;  /*important*/
+	text-align: center;
+	line-height: 2px;
+}
