@@ -1,0 +1,25 @@
+
+<section id="posts">
+<%  @articles.each do |article|  %>		
+			<article class="post">
+				<header>
+					<h2><%= article.title  %></h2>
+				</header>
+				<%= truncate(strip_tags(article.content), length: 500) %>
+				<footer>
+					<!-- <a href="article_view.html"><i>2 Comments</i></a> -->
+					<%= link_to article.comments.count.to_s+" Comments ", blog_show_path(article_id: article) %>
+				</footer>
+			</article>		
+<% end %>
+</section>
+<section id="sidebar">
+    <nav>
+       <h3>Archives</h3>
+            <ul>
+        		<li><a href="2014/05">May 2014</a></li>
+        		<li><a href="2014/04">April 2014</a></li>
+        		<li><a href="2014/03">March 2014</a></li>
+        	</ul>
+    </nav>
+</section>

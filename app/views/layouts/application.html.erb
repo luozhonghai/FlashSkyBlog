@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FlashSky Blog</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<header id="page_header">
+			<h1>FlashSky Blog</h1>
+	</header>
+
+	<%= yield %>
+
+	<footer id="page_footer">
+		<p>&copy; 2014 FlashskyCo.</p>
+		<nav>
+			<ul>
+				<!-- <li><a href="index.html">Home</a></li> -->
+				<%= link_to 'Home', blog_path %>
+			</ul>
+		</nav>
+	</footer>
+</body>
+</html>

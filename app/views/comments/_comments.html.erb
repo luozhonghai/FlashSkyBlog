@@ -1,0 +1,9 @@
+<h3>COMMENTS</h3>
+     <% current_view_obj.comments.each do |comment| %>
+      <section class="comment">
+            <p><%= comment.description  %></p>
+            <footer>
+            	<p><%= comment.user  %> <%= "-----"+comment.created_at.localtime.strftime("%B %d %X %Y") %></p>
+            </footer>
+      </section>
+<% end %>

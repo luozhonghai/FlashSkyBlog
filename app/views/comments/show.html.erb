@@ -1,0 +1,27 @@
+<!-- <p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @comment.user %>
+</p>
+
+<p>
+  <strong>Mail:</strong>
+  <%= @comment.mail %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @comment.description %>
+</p>
+
+<%= link_to 'Edit', edit_comment_path(@comment) %> |
+<%= link_to 'Back', comments_path %> -->
+
+<section class="comment">
+    <p><%= @comment.description %></p>
+    <footer>
+        <p><%= @comment.user %> <%= @comment.created_at.localtime.strftime("%A %B %d %X %Z %Y")  %></p>
+       <!--  # April 26 2014 08:12 AM -->
+    </footer>
+</section>

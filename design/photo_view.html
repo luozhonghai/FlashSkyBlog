@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>FlashSky Blog</title>
+		<link rel="stylesheet" type="text/css" href="article_style.css">
+		<link rel="stylesheet" type="text/css" href="photo_view_style.css">
+		<script type="text/javascript" src="photo_view.js"></script>
+	</head>
+   
+	<body>
+		<header id="page_header">
+			<h1>FlashSky Blog</h1>
+			<nav>
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="photo_gallery.html">Gallery</a></li>
+				</ul>
+			</nav>
+		</header>
+        
+		<div id="gallery">
+			<div id="gallery_image"><img src="" alt=""></div>
+			<div id="gallery_prev"><a href="">&laquo; Prev</a></div>
+			<div id="gallery_next"><a href="">Next &raquo;</a></div>
+			<div id="gallery_title"></div>
+		</div>
+
+		<section id="comments">
+        	<h3>COMMENTS</h3>
+
+        	<section class="comment">
+            	<p>"This is my comment."</p>
+            	<footer>
+            		<p>UserOne April 26 2014 08:12 AM</p>
+            	</footer>
+        	</section>
+        	<section class="comment">
+            	<p>"This is my comment."</p>
+            	<footer>
+            		<p>UserTwo April 27 2014 08:12 AM</p>
+            	</footer>
+        	</section>
+        </section>
+
+		<section id="postcomments">
+        	<h3>POST A COMMENT</h3>
+            <form action="" method="POST" accept-charset=utf-8>
+            	<label for="name">Name:</label><br/>
+            	<input type="text" id="name" class="text" placeholder="'Luo'" /><br/>
+
+            	<label for="email">Email:</label><br/>
+            	<input type="text" id="email" class="text" placeholder="user@example.com" /><br/>
+
+            	<label for="comment_text">Comment:</label><br/>
+            	<textarea rows="10" cols="30" id="comment_text"></textarea><br/>
+
+            	<input type="submit" value="Submit" class="submit"/>
+            </form>
+        </section>
+		<footer id="page_footer">
+			<p>&copy; 2014 FlashskyCo.</p>
+			<nav>
+				<ul>
+					<li><a href="index.html">Home</a></li>
+				</ul>
+			</nav>
+		</footer>
+	</body>
+</html>

@@ -1,0 +1,2 @@
+$('#comments').html("<%= escape_javascript render(partial: "comments", locals: {current_view_obj:@article }) %>")
+$('#formcontent').html("<%= escape_javascript render(partial: "form",  locals: {comment: @comment})  %>")

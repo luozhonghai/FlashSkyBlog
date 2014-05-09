@@ -1,0 +1,28 @@
+// Place all the styles related to the Blog controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+p{
+	margin: 0 0 15px;
+}
+
+p,li{
+	line-height: 20px;
+}
+
+header#page_header{
+	width: 100%;
+	background-color: #A3B8CD;
+	color: #FFFFFF;
+	font-weight: normal;
+}
+
+section#posts{
+	float: left;
+	width: 70%;
+}
+section#sidebar{
+	float: left;
+	width: 25%;
+}

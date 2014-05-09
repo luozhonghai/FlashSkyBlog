@@ -1,0 +1,26 @@
+// Place all the styles related to the Articles controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+body{
+	width: 900px;
+	margin: 15px auto;
+    font-family:  arial, "tmes new roman",serif;
+}
+
+header#page_header{
+	width: 100%;
+}
+
+footer#page_footer nav ul{
+	list-style:none;
+	margin: 0;
+	padding: 0;
+}
+
+footer#page_footer{
+	clear: both;
+    width: 100%;
+    text-align: center;
+}

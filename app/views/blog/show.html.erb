@@ -1,0 +1,23 @@
+
+<section id="posts">
+ <article class="post">
+	<header>
+		<h2><%= @article.title  %></h2>
+	</header>
+		<%= sanitize(@article.content) %>
+ </article>	
+</section>	
+
+<section id="comments">
+   <%=  render(partial: "comments/comments", locals: {current_view_obj:@article } ) %>
+</section>
+
+
+
+<section id="postcomments">
+	<h3>POST A COMMENT</h3>
+	<div id="formcontent">
+		<%= render(partial: "comments/form", locals: {comment: @comment}) %>
+	</div>
+</section>
+
