@@ -2,12 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+section#posts{
+	width: 900px;
+	margin: 15px auto;
+    font-family:  "Times New Roman", Arial, serif;
+}
 
-p{
+article p{
 	margin: 0 0 15px;
 }
 
-p,li{
+article p,li{
 	line-height: 20px;
 }
 

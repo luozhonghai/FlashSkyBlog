@@ -8,7 +8,6 @@ section#comments, section#postcomments{
     width: 70%;
     font-family: "Microsoft YaHei";
     font-size: 14px;
-/*    text-align: center;*/
 }
 section#comments h3, section#postcomments h3{
 	background-color: #A3B8CD;
@@ -23,6 +22,8 @@ section#comments h3, section#postcomments h3{
 }
 .comment p{
    line-height: 5px;
+   font-family: "Microsoft YaHei";
+   font-size: 14px;
 }
 .comment footer{
 	text-align: right;

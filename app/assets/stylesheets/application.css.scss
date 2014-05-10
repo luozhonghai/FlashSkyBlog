@@ -11,4 +11,9 @@
  *= require_self
  *= require_tree .
  */
-
+header#page_header{
+	width: 100%;
+	background-color: #A3B8CD;
+	color: #FFFFFF;
+	font-weight: normal;
+}
