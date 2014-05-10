@@ -18,3 +18,4 @@ mainly bulid two visual templates with HTML and CSS.
 2014-5-10
 1. create ruby on rails project of the blog.
 2. implement comment post and basic form validation.
+3. move previous css/js/jpg/html files to "design" folder for future use, and copy some files to  corresponding sub-folders in "app/asset". 
