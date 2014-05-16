@@ -5,10 +5,20 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+   <%= stylesheet_link_tag "/markitup/skins/simple/style", "/markitup/sets/default/style" %>
+   <%= javascript_include_tag  "/markitup/jquery.markitup", "/markitup/sets/default/set"  %>
 </head>
 <body>
 	<header id="page_header">
 			<h1>FlashSky Blog</h1>
+			<nav>
+				<ul>
+					<li><%= link_to 'Home', blog_path %></li>
+					<li><%= link_to 'New Article', blog_post_path %></a></li>
+					<li><%= link_to 'Gallery', blog_gallery_path %></a></li>
+					<li><a href="index.html">Archives</a></li>
+				</ul>
+			</nav>
 	</header>
 
 	<%= yield %>

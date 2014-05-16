@@ -1,0 +1,22 @@
+
+<div id="album">
+			<div id="gallery_image">
+				<img id="my_image" src="<%=  url_for(action: 'picture', id: @picture.id) %>" alt="">
+			</div>
+			<div id="gallery_prev">
+				<% pic = prev_picture(@picture.id)%>
+				<% if pic != nil %>
+				&laquo; <%= link_to 'Prev', blog_album_path(id: pic) %>	
+				<% end %>				
+			</div>
+			<div id="gallery_next">
+				<% pic = next_picture(@picture.id)%>
+				<% if pic != nil %>
+				<%= link_to 'Next', blog_album_path(id: pic) %> &raquo;
+				<% end %>
+			</div>
+			<div id="gallery_title">
+				<%= @picture.title %>
+			</div>
+</div>
+

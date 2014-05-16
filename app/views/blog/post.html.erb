@@ -1,0 +1,26 @@
+
+<%= form_for(@article) do |f| %>
+<section id="newpost">
+        	<h3>New Article</h3>
+			<form action="" method="POST" accept-charset=utf-8>
+            	<label for="title">Title:</label>
+                <%= f.text_field :title, placeholder: 'Title' %><br/>
+
+                 <%= f.text_area :content, id: "markItUp", rows: 20, cols: 80 %><br/>
+               
+
+            	<label for="category">Category:</label>
+            	<input type="text" id="category" class="text" /><br/>
+            	<input type="submit" value="Post Article" class="submit"/>
+       		 </form>
+
+</section>
+<% end %>
+
+<script type="text/javascript">
+            $(function() {
+                    // Add markItUp! to your textarea in one line
+                    // $('textarea').markItUp( { Settings }, { OptionalExtraSettings } );
+                    $('#markItUp').markItUp(mySettings);
+            });
+</script>

@@ -1,0 +1,20 @@
+
+<%= form_for(:picture,
+			url: {action: 'save'},
+			html: {multipart: true}
+			) do |form| %>
+
+    Title:          <%= form.text_field(:title) %><br/>  
+	Upload picture: <%= form.file_field(:file) %><br/>
+
+	<%= submit_tag("Upload picture") %>
+<% end %>
+
+<ul class="gallery">
+<% @pictures.each do |picture| %>
+	<li>
+	<%= link_to(image_tag(url_for(action: 'picture', id: picture.id)), blog_album_path(id: picture.id)) %>
+	<span><%= picture.title %></span>
+	</li>
+<% end %>
+</ul>

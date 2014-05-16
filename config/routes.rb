@@ -1,9 +1,20 @@
 Blog::Application.routes.draw do
+  resources :pictures
+
   resources :comments
 
   get "blog/show"
   get "blog/article_view"
   get "blog/index"
+  get "blog/post"
+  get "blog/gallery"
+  post "blog/gallery"
+  get "blog/album"
+  
+  get "blog/save"
+  post "blog/save"
+  get "blog/picture"
+  
   resources :articles
 
   # The priority is based upon order of creation: first created -> highest priority.

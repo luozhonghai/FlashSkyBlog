@@ -1,0 +1,76 @@
+// Place all the styles related to the pictures controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+// Place all the styles related to the Pictures controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+ul.gallery {
+	list-style: none;
+	width: 70%;
+}
+
+ul.gallery li {
+	float: left;
+	margin: 6px;
+	width: 160px;
+	height: 160px;
+	background: #FFF;
+/*	border: 1px solid #AAA;*/
+}
+ul.gallery img{
+	width: 150px;
+	margin: 5px;
+	border: 0px;
+	margin-top: 23px;
+}
+ul.gallery a{
+	text-decoration: none;
+}
+ul.gallery span{
+	display: block;  /*important*/
+	text-align: center;
+	line-height: 2px;
+}
+
+#album {
+	position: relative;
+	margin-top: 10px;
+	background: #FFF;
+	z-index: 110;
+	width: 650px;
+	height: 510px;
+	display: block;
+}
+#gallery_title {
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+	width: 100%;
+	font-size: 16px;
+	text-align: center;
+}
+#album img {
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	width: 640px;
+	height: 480px;
+	border: 0px;
+	z-index: 115;
+}
+#gallery_prev, #gallery_next {
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	z-index: 120;
+	width: 60px;
+	text-align: center;
+	padding: 4px;
+}
+#gallery_prev{
+	left: 0px;
+}
+#gallery_prev a, #gallery_next a {
+	color: #000;
+	text-decoration: none;
+}

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140429120715) do
+ActiveRecord::Schema.define(version: 20140516092722) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -27,6 +27,15 @@ ActiveRecord::Schema.define(version: 20140429120715) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "article_id"
+  end
+
+  create_table "pictures", force: true do |t|
+    t.string   "title"
+    t.string   "name"
+    t.string   "content_type"
+    t.binary   "data",         limit: 1048576
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
