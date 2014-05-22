@@ -6,13 +6,13 @@
 			<div id="gallery_prev">
 				<% pic = prev_picture(@picture.id)%>
 				<% if pic != nil %>
-				&laquo; <%= link_to 'Prev', blog_album_path(id: pic) %>	
+				&laquo; <%= link_to 'Prev', album_show_url(id: pic, name: @user.name) %>	
 				<% end %>				
 			</div>
 			<div id="gallery_next">
 				<% pic = next_picture(@picture.id)%>
 				<% if pic != nil %>
-				<%= link_to 'Next', blog_album_path(id: pic) %> &raquo;
+				<%= link_to 'Next', album_show_url(id: pic, name: @user.name) %> &raquo;
 				<% end %>
 			</div>
 			<div id="gallery_title">

@@ -1,4 +1,4 @@
-
+<% if(session[:blog_id] == session[:user_id]) %>
 <%= form_for(:picture,
 			url: {action: 'save'},
 			html: {multipart: true}
@@ -9,11 +9,12 @@
 
 	<%= submit_tag("Upload picture") %>
 <% end %>
+<% end %>
 
 <ul class="gallery">
 <% @pictures.each do |picture| %>
 	<li>
-	<%= link_to(image_tag(url_for(action: 'picture', id: picture.id)), blog_album_path(id: picture.id)) %>
+	<%= link_to(image_tag(url_for(action: 'picture', id: picture.id)), album_show_url(id: picture.id, name: @user.name)) %>
 	<span><%= picture.title %></span>
 	</li>
 <% end %>

@@ -1,21 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>FlashSky Blog</title>
+  <title><%= User.find_by_id(session[:blog_id]).name %> Blog</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
-   <%= stylesheet_link_tag "/markitup/skins/simple/style", "/markitup/sets/default/style" %>
-   <%= javascript_include_tag  "/markitup/jquery.markitup", "/markitup/sets/default/set"  %>
+  <%= stylesheet_link_tag "/markitup/skins/simple/style", "/markitup/sets/default/style" %>
+  <%= javascript_include_tag  "/markitup/jquery.markitup", "/markitup/sets/default/set"  %>
 </head>
 <body>
-	<header id="page_header">
-			<h1>FlashSky Blog</h1>
+  <header id="page_header">
+    <% blog_name = User.find_by_id(session[:blog_id]).name%>
+    <% if(session[:blog_id] == session[:user_id]) %>
+      <nav>
+        <ul>
+          <li><%= link_to 'Log Out', logout_path, method: :delete %></li>
+        </ul>
+      </nav>
+    <% end %>
+			<h1><%= User.find_by_id(session[:blog_id]).name %> Blog</h1>
 			<nav>
 				<ul>
-					<li><%= link_to 'Home', blog_path %></li>
-					<li><%= link_to 'New Article', blog_post_path %></a></li>
-					<li><%= link_to 'Gallery', blog_gallery_path %></a></li>
+					<li><%= link_to 'Home', blog_path(name: blog_name) %></li>
+          <% if(session[:blog_id] == session[:user_id]) %>
+					 <li><%= link_to 'New Article', article_post_url(name: blog_name) %></a></li>
+          <% end %>
+					<li><%= link_to 'Gallery', gallery_show_url(name: blog_name) %></a></li>
 					<li><a href="index.html">Archives</a></li>
 				</ul>
 			</nav>

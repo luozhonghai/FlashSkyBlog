@@ -25,9 +25,10 @@ class ArticlesController < ApplicationController
   # POST /articles.json
   def create
     @article = Article.new(article_params)
-
+    user = User.find_by_id(session[:user_id])
     respond_to do |format|
       if @article.save
+        user.add_article(@article)
         format.html { redirect_to blog_path, notice: 'Article was successfully created.' }
         format.json { render action: 'show', status: :created, location: @article }
       else

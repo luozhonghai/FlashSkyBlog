@@ -11,14 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140516092722) do
+ActiveRecord::Schema.define(version: 20140522091500) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
+
+  add_index "articles", ["user_id"], name: "index_articles_on_user_id"
 
   create_table "comments", force: true do |t|
     t.string   "user"
@@ -27,13 +30,27 @@ ActiveRecord::Schema.define(version: 20140516092722) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "article_id"
+    t.integer  "user_id"
   end
+
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "pictures", force: true do |t|
     t.string   "title"
     t.string   "name"
     t.string   "content_type"
     t.binary   "data",         limit: 1048576
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  add_index "pictures", ["user_id"], name: "index_pictures_on_user_id"
+
+  create_table "users", force: true do |t|
+    t.string   "name"
+    t.string   "password_digest"
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

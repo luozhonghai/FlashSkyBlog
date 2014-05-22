@@ -8,7 +8,7 @@
 				<%= truncate(strip_tags(article.content), length: 500) %>
 				<footer>
 					<!-- <a href="article_view.html"><i>2 Comments</i></a> -->
-					<%= link_to article.comments.count.to_s+" Comments ", blog_show_path(article_id: article) %>
+					<%= link_to article.comments.count.to_s+" Comments ", article_show_url(name: User.find_by_id(session[:blog_id]).name, article_id: article) %>
 				</footer>
 			</article>		
 <% end %>

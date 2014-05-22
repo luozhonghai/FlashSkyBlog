@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= User.find_by_id(session[:blog_id]).name %> Blog</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <header id="page_header">
+      <h1>Welcome to Blog!</h1>
+  </header>
+
+  <%= yield %>
+  
+  <footer id="page_footer">
+    <p>&copy; 2014 FlashskyCo.</p>
+    <nav>
+      <ul>
+      </ul>
+    </nav>
+  </footer>
+</body>
+</html>

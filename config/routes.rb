@@ -1,15 +1,21 @@
 Blog::Application.routes.draw do
+
+
+
+  get "sessions/create"
+  get "sessions/destroy"
+  resources :users
+
   resources :pictures
 
   resources :comments
 
-  get "blog/show"
-  get "blog/article_view"
+ # get "blog/show"
   get "blog/index"
-  get "blog/post"
-  get "blog/gallery"
-  post "blog/gallery"
-  get "blog/album"
+  #get "blog/post"
+  # get "blog/gallery"
+  # post "blog/gallery"
+  # get "blog/album"
   
   get "blog/save"
   post "blog/save"
@@ -17,12 +23,31 @@ Blog::Application.routes.draw do
   
   resources :articles
 
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
   root 'blog#index', as: 'blog'
+  
+  get 'blog' => 'blog#index'
+  get 'blog/:name' => 'blog#index'
+
+  controller :sessions do
+    get 'login' => :new
+    post 'login' => :create
+    delete 'logout' => :destroy
+    get 'register'
+  end
+
+  controller :blog do
+    get 'blog/:name/show' => 'blog#show', as: :article_show
+    get "blog/:name/post" => 'blog#post', as: :article_post
+    get "blog/:name/gallery" => 'blog#gallery', as: :gallery_show
+    post "blog/:name/gallery" =>'blog#gallery', as: :gallery_post
+    get "blog/:name/album" => 'blog#album', as: :album_show
+  end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

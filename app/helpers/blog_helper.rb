@@ -4,7 +4,7 @@ module BlogHelper
 	end
 
 	def prev_picture(picture_id)
-		pic = Picture.where("id < #{picture_id}").last
+		pic = Picture.where("id < #{picture_id}").find_all_by_user_id(session[:blog_id]).last
 		if pic != nil
 		   pic.id
 		else
@@ -13,7 +13,7 @@ module BlogHelper
 	end
 
 	def next_picture(picture_id)
-		pic = Picture.where("id > #{picture_id}").first
+		pic = Picture.where("id > #{picture_id}").find_all_by_user_id(session[:blog_id]).first
 		if pic != nil
 		   pic.id
 		else
