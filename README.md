@@ -24,3 +24,6 @@ mainly bulid two visual templates with HTML and CSS.
 1. create "post" action in blog_controller and corresponding html/css , integrate "markitup " text editor to implement post a new article.
 2. create "gallery" and "album" action in blog_controller and corresponding html/css , now blog can upload picture,  view snap shot and view pictures by sequence in album when click a certain picture. 
  
+2014-5-23
+1. show published(created) time of articles.
+2. add login and register related function. add sessions_controller and users_controller.Users can register repective blogs and view others's page through url(/blog/:name/...).
