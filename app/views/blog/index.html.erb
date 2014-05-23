@@ -4,6 +4,7 @@
 			<article class="post">
 				<header>
 					<h2><%= article.title  %></h2>
+          <h4>Published <%= article.created_at.localtime.strftime("%B %d %X %Y") %></h4>
 				</header>
 				<%= truncate(strip_tags(article.content), length: 500) %>
 				<footer>
