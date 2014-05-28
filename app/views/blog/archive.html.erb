@@ -1,0 +1,6 @@
+<h1>Articles with selected publish time</h1>
+<ul>
+  <% @articles.each do |article| %>
+    <li><%= link_to article.title, article_show_url(name: article.user.name, article_id: article.id) %></li>
+  <% end %>
+</ul>

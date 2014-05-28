@@ -1,0 +1,6 @@
+<h1>Articles with tag :<%= @tag.name %></h1>
+<ul>
+  <% @tag.tag_items.each do |item| %>
+    <li><%= link_to item.article.title, article_show_url(name: item.article.user.name, article_id: item.article) %></li>
+  <% end %>
+</ul>

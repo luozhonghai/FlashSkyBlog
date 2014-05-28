@@ -1,0 +1,58 @@
+<%= form_for(comment, remote: true) do |f| %>
+  <% if comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+      <ul>
+      <% comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<!--   <div class="field">
+    <%= f.label :user %><br>
+    <%= f.text_field :user %>
+  </div>
+  <div class="field">
+    <%= f.label :mail %><br>
+    <%= f.text_field :mail %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div> -->
+
+
+
+            <form action="" method="POST" accept-charset=utf-8>
+              <% if(session[:user_id] != nil) %>               
+                <% user = User.find_by_id(session[:user_id])%>
+                <h2><%= f.label user.name %></h2><br/>
+                <%= f.hidden_field :user,  value: user.name %>
+                <%= f.hidden_field :mail,  value: user.email %>
+              <% else %>
+
+                <div>
+                  <%= label_tag :name, 'Name:' %>
+                  <%= text_field_tag :name, params[:name] %>
+                </div>
+                <div>
+                  <%= label_tag :password, 'Password:' %>
+                  <%= password_field_tag :password, params[:password] %>
+                  <% if @e==true %>
+                  <div id="loginerror"></div>
+                  <% end %>
+                </div>
+              <% end %>
+              <%= f.label :description, 'Comment:' %><br>         
+              <%= f.text_area :description %><br/>
+              <%= f.submit value:"Submit", class: 'submit' %>
+
+              
+            </form>
+<% end %>
