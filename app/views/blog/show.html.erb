@@ -3,7 +3,13 @@
  <article class="post">
 	<header>
 		<h2><%= @article.title  %></h2>
-    <h4>Published <%= @article.created_at.localtime.strftime("%B %d %X %Y") %></h4>
+    <h4>Published <%= @article.month+@article.created_at.localtime.strftime(" %d %X %Y") %></h4>
+    <p>
+      Tag:
+      <% @article.tag_items.each do |item| %>
+      <%= link_to item.tag.name, tag_path(item.tag) %>
+      <% end %>
+    </p>
 	</header>
 		<%= sanitize(@article.content) %>
  </article>	
@@ -18,7 +24,7 @@
 <section id="postcomments">
 	<h3>POST A COMMENT</h3>
 	<div id="formcontent">
-		<%= render(partial: "comments/form", locals: {comment: @comment}) %>
+		<%= render(partial: "comments/formlogin", locals: {comment: @comment}) %>
 	</div>
 </section>
 

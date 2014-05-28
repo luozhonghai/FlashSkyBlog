@@ -15,10 +15,19 @@
       </div>
       <div>
         <%= submit_tag "Login" %>
+        <%= link_to 'Register', register_url %>
       </div>
+
     </fieldset>
   <% end %>
   <div>
-    <%= link_to 'Register', register_url %>
+    <h4><%= "Want to view some interesting blogs?" %></h4>
+  </div>
+  <div>
+    <ul>
+      <% @exist_users.each do |user| %>
+      <li><%= link_to user.name, blog_path(name: user.name) %></li>
+      <% end %>
+    </ul>
   </div>
 </div>

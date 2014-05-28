@@ -8,11 +8,12 @@ class BlogController < ApplicationController
       if(@user)
         @articles = Article.find_all_by_user_id(@user.id)
         session[:blog_id] = @user.id
+        @archive = Article.where(user_id: @user.id).select("year,month,count(id) as amount").group("year","month")
       end
     #view my blog
     elsif(session[:user_id] != nil)  
-      user = User.find_by_id(session[:user_id])
-      redirect_to blog_path(name: user.name)
+      @user = User.find_by_id(session[:user_id])
+      redirect_to blog_path(name: @user.name)
     else
       redirect_to login_url, notice: "Please log in"
     end
@@ -27,7 +28,7 @@ class BlogController < ApplicationController
     else
       @article = Article.find(session[:current_article_id])
     end
-
+    session[:blog_id] = User.find_by_name(params[:name])
     @comment = Comment.new
   end
 
@@ -70,5 +71,10 @@ class BlogController < ApplicationController
   def album
     @user = User.find_by_name(params[:name])
     @picture = Picture.where(user_id: @user.id).find(params[:id])
+  end
+
+  def archive
+     @user = User.find_by_name(params[:name])
+     @articles = Article.where(user_id: @user.id, month: params[:month], year: params[:year])
   end
 end

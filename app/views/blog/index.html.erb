@@ -4,12 +4,17 @@
 			<article class="post">
 				<header>
 					<h2><%= article.title  %></h2>
-          <h4>Published <%= article.created_at.localtime.strftime("%B %d %X %Y") %></h4>
+          <h4>Published <%= article.month+article.created_at.localtime.strftime(" %d %X %Y") %></h4>
 				</header>
+          <p>
+            Tag:
+            <% article.tag_items.each do |item| %>
+            <%= link_to item.tag.name, tag_path(item.tag) %>
+            <% end %>
+          </p>
 				<%= truncate(strip_tags(article.content), length: 500) %>
 				<footer>
-					<!-- <a href="article_view.html"><i>2 Comments</i></a> -->
-					<%= link_to article.comments.count.to_s+" Comments ", article_show_url(name: User.find_by_id(session[:blog_id]).name, article_id: article) %>
+					<%= link_to article.comments.count.to_s+" Comments ", article_show_url(name: article.user.name, article_id: article) %>
 				</footer>
 			</article>		
 <% end %>
@@ -17,10 +22,13 @@
 <section id="sidebar">
     <nav>
        <h3>Archives</h3>
-            <ul>
-        		<li><a href="2014/05">May 2014</a></li>
-        		<li><a href="2014/04">April 2014</a></li>
-        		<li><a href="2014/03">March 2014</a></li>
+          <ul>
+            <% @archive.each do |item| %>
+              <% if item.month != nil%>
+                <% link_str = item.month+" "+item.year%>
+                <li><%= link_to link_str, archive_show_url(name: User.find_by_id(session[:blog_id]).name, month: item.month, year: item.year)%><%=" "+"("+item.amount.to_s+")"%></li>
+              <% end %>
+            <% end %>
         	</ul>
     </nav>
 </section>

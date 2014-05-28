@@ -44,10 +44,13 @@ Blog::Application.routes.draw do
   controller :blog do
     get 'blog/:name/show' => 'blog#show', as: :article_show
     get "blog/:name/post" => 'blog#post', as: :article_post
+    get "blog/:name/archive" => 'blog#archive', as: :archive_show
     get "blog/:name/gallery" => 'blog#gallery', as: :gallery_show
     post "blog/:name/gallery" =>'blog#gallery', as: :gallery_post
     get "blog/:name/album" => 'blog#album', as: :album_show
   end
+
+  resources :tags
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

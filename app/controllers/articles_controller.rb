@@ -25,6 +25,8 @@ class ArticlesController < ApplicationController
   # POST /articles.json
   def create
     @article = Article.new(article_params)
+    @article.month = Time.now.localtime.strftime("%B")
+    @article.year = Time.now.localtime.strftime("%Y")
     user = User.find_by_id(session[:user_id])
     respond_to do |format|
       if @article.save
@@ -70,6 +72,6 @@ class ArticlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit(:title, :content)
+      params.require(:article).permit(:title, :content, :tag_list)
     end
 end

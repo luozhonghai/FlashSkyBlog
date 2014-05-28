@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
   layout "login"
   def new
+    @exist_users = User.all
   end
 
   def create

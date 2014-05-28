@@ -3,7 +3,7 @@
       <section class="comment">
             <p><%= comment.description  %></p>
             <footer>
-            	<p><%= comment.user  %> <%= "-----"+comment.created_at.localtime.strftime("%B %d %X %Y") %></p>
+            	<p><%= link_to comment.user, blog_path(name: comment.user)%> <%= "-----"+comment.created_at.localtime.strftime("%B %d %X %Y") %></p>
             </footer>
       </section>
 <% end %>

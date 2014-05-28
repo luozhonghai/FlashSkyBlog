@@ -21,14 +21,29 @@ class CommentsController < ApplicationController
   def edit
   end
 
+
   # POST /comments
   # POST /comments.json
   def create
-    @comment = Comment.new(comment_params)
+
+    if(session[:user_id] != nil)
+      @comment = Comment.new(comment_params)
+    else
+      user = User.find_by_name(params[:name])
+      @comment = Comment.new
+      if user and user.authenticate(params[:password])
+        session[:user_id] = user.id
+        @comment.user = user.name
+        @comment.mail = user.email
+        @comment.description = params[:comment][:description]
+      else
+        #redirect_to login_url, alert: "Invalid user/password combination"
+      end
+    end
     @article  = Article.find(session[:current_article_id])
    
     respond_to do |format|
-      if @comment.save
+      if @comment.save  
         @article.add_comment(@comment)
         #  format.html { render template: "blog/show"} blog_show_url
         format.html { redirect_to blog_show_path(article_id: @article), notice: 'Comment was successfully created.' }
@@ -37,7 +52,9 @@ class CommentsController < ApplicationController
       else
        # format.html { render action: 'new' }
         format.html { render partial: "form",  locals: {comment: @comment}} #doesn`t work when use ajax(remote:true)!
-        format.js {}   # work when use ajax(remote:true)!
+        format.js {
+                   #@comment = Comment.new
+                   @e=true }   # work when use ajax(remote:true)! and write two lines
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
