@@ -20,7 +20,9 @@ Blog::Application.routes.draw do
   get "blog/save"
   post "blog/save"
   get "blog/picture"
-  
+  post "blog/edit_category"
+  get "blog/edit_category"
+  get "blog/delete_article"
   resources :articles
 
 
@@ -44,6 +46,7 @@ Blog::Application.routes.draw do
   controller :blog do
     get 'blog/:name/show' => 'blog#show', as: :article_show
     get "blog/:name/post" => 'blog#post', as: :article_post
+    get "blog/:name/edit" => 'blog#edit_article', as: :article_edit
     get "blog/:name/archive" => 'blog#archive', as: :archive_show
     get "blog/:name/gallery" => 'blog#gallery', as: :gallery_show
     post "blog/:name/gallery" =>'blog#gallery', as: :gallery_post

@@ -35,6 +35,12 @@ class BlogController < ApplicationController
   #post a new article
   def post
     @article = Article.new
+    @category_list = Category.find_all_by_user_id(session[:user_id])
+  end
+
+  def edit_article
+    @article = Article.find(params[:article_id])
+    @category_list = Category.find_all_by_user_id(session[:user_id])
   end
 
   def gallery
@@ -74,7 +80,33 @@ class BlogController < ApplicationController
   end
 
   def archive
-     @user = User.find_by_name(params[:name])
-     @articles = Article.where(user_id: @user.id, month: params[:month], year: params[:year])
+    @user = User.find_by_name(params[:name])
+    @articles = Article.where(user_id: @user.id, month: params[:month], year: params[:year])
+  end
+
+  def edit_category
+    if(params[:add_category_name] != nil)
+      @category = Category.new
+      @category.user_id = User.find(session[:user_id]).id
+      @category.name = params[:add_category_name]
+      respond_to do |format|
+      if @category.save
+        format.js {@category_list = Category.find_all_by_user_id(session[:user_id])}
+      end
+    end
+
+    elsif(params[:delete_category_id] != nil)
+      @category = Category.find(params[:delete_category_id])
+      @category.destroy 
+      respond_to do |format|
+        format.js {@category_list = Category.find_all_by_user_id(session[:user_id])}
+      end
+    end
+  end
+
+  def delete_article
+    article = Article.find(params[:article_id])
+    article.destroy
+    redirect_to(blog_path(User.find_by_id(session[:blog_id]).name))
   end
 end

@@ -1,0 +1,8 @@
+<ul>
+  <% category_list.each do |category| %>
+    <li>
+      <%= category.name %>
+      <%= link_to "Delete", blog_edit_category_path(delete_category_id: category.id) ,remote: true %>
+    </li>
+  <% end %>
+</ul>

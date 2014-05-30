@@ -2,7 +2,6 @@
 <%= form_for(@article) do |f| %>
 <section id="newpost">
         	<h3>New Article</h3>
-			<form action="" method="POST" accept-charset=utf-8>
             	<label for="title">Title:</label>
                   <%= f.text_field :title, placeholder: 'Title' %><br/>
                   <%= f.text_area :content, id: "markItUp", rows: 20, cols: 80 %><br/>              
@@ -11,17 +10,41 @@
                   <%= f.text_field :tag_list, size: 30 %>
                 </div>
             	<label for="category">Category:</label>
-            	<input type="text" id="category" class="text" /><br/>
+              <%= f.select :categ, @category_list.collect{|item| item.name} %>
+              <button id="create-category" type="button">Create category</button>
+              
             	<input type="submit" value="Post Article" class="submit"/>
-       		 </form>
-
 </section>
 <% end %>
+
+<div id="dialog" title="Create category">
+  <%= form_tag( '/blog/edit_category', remote: true) do %>
+    <%= text_field_tag :add_category_name, params[:add_category_name] %>
+    <%= submit_tag "Add"%>
+  <% end %>
+  <div id="category-list">
+      <%= render(partial: "category_list",  locals: {category_list: @category_list}) %>
+  </div>
+ </div>
 
 <script type="text/javascript">
             $(function() {
                     // Add markItUp! to your textarea in one line
                     // $('textarea').markItUp( { Settings }, { OptionalExtraSettings } );
                     $('#markItUp').markItUp(mySettings);
+            });
+            $(function() {
+                  $("#create-category").button().click(function(){
+                    $( "#dialog" ).dialog("open");
+                  })
+            });
+            $( "#dialog" ).dialog({
+              autoOpen: false,
+              modal: true,
+              buttons: {
+                "OK": function(){
+                  $(this).dialog("close");
+                }
+              }
             });
 </script>

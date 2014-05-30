@@ -12,9 +12,19 @@
             <%= link_to item.tag.name, tag_path(item.tag) %>
             <% end %>
           </p>
+          <p>
+            Category:
+            <%= article.categ%>
+          </p>
 				<%= truncate(strip_tags(article.content), length: 500) %>
 				<footer>
 					<%= link_to article.comments.count.to_s+" Comments ", article_show_url(name: article.user.name, article_id: article) %>
+          <% if(session[:blog_id] == session[:user_id]) %>
+          <div>
+            <%= link_to 'Delete', blog_delete_article_path(article_id: article.id), data: { confirm: 'Are you sure?' } %>
+            <%= link_to 'Edit', article_edit_path(name: @user.name, article_id: article.id) %>
+          </div>
+          <% end %>
 				</footer>
 			</article>		
 <% end %>
