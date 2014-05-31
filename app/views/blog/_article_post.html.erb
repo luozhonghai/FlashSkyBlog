@@ -1,0 +1,44 @@
+<% if(session[:article_post] != nil) %>
+<%   article = Article.find(session[:article_post]) %>
+<% else %>
+<%   article = Article.new %>
+<% end %>
+<%= form_for(article) do |f| %>
+<section id="newpost">
+          <h3>New Article</h3>
+              <label for="title">Title:</label>
+                  <%= f.text_field :title, placeholder: 'Title' %><br/>
+                  <%= f.text_area :content, id: "markItUp", rows: 20, cols: 80 %><br/>              
+                <div>
+                  <%= f.label :tag_list, 'Tags:(seperate with ,)' %><br>
+                  <%= f.text_field :tag_list, size: 30 %>
+                </div>
+              <label for="category">Category:</label>
+              <%= f.select :categ, category_list.collect{|item| item.name} %>
+              <button id="create-category" type="button">Create category</button>
+              
+              <input type="submit" value="Post Article" class="submit"/>
+</section>
+<% end %>
+
+<script type="text/javascript">
+            $(function() {
+                    // Add markItUp! to your textarea in one line
+                    // $('textarea').markItUp( { Settings }, { OptionalExtraSettings } );
+                    $('#markItUp').markItUp(mySettings);
+            });
+            $(function() {
+                  $("#create-category").button().click(function(){
+                    $( "#dialog" ).dialog("open");
+                  })
+            });
+            $( "#dialog" ).dialog({
+              autoOpen: false,
+              modal: true,
+              buttons: {
+                "OK": function(){
+                  $(this).dialog("close");
+                }
+              }
+            });
+</script>

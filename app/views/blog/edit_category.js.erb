@@ -1,1 +1,2 @@
 $('#category-list').html("<%= escape_javascript render(partial: "category_list",  locals: {category_list: @category_list})  %>")
+$('#article-form').html("<%= escape_javascript render(partial: "article_post",  locals: {article:@article, category_list: @category_list}) %>")

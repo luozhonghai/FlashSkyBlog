@@ -14,7 +14,9 @@
           </p>
           <p>
             Category:
-            <%= article.categ%>
+            <% if(article.categ != nil) %>
+            <%= link_to article.categ, category_show_path(id: Category.find_by_name(article.categ), name: @user.name)%>
+            <% end %>
           </p>
 				<%= truncate(strip_tags(article.content), length: 500) %>
 				<footer>
@@ -31,14 +33,41 @@
 </section>
 <section id="sidebar">
     <nav>
-       <h3>Archives</h3>
-          <ul>
-            <% @archive.each do |item| %>
-              <% if item.month != nil%>
-                <% link_str = item.month+" "+item.year%>
+      <h3>Archives</h3>
+        <ul>
+          <% @archive.each do |item| %>
+            <% if item.month != nil%>
+              <% link_str = item.month+" "+item.year%>
                 <li><%= link_to link_str, archive_show_url(name: User.find_by_id(session[:blog_id]).name, month: item.month, year: item.year)%><%=" "+"("+item.amount.to_s+")"%></li>
               <% end %>
             <% end %>
+          </ul>
+    </nav>
+    <nav>
+       <h3>Category</h3>
+          <ul>
+            <% @category_list.each do |item| %>
+              <li><%= link_to item.name, category_show_path(id: Category.find_by_name(item.name), name: @user.name)%><%=" "+"("+Article.where(user: User.find_by_id(session[:blog_id]), categ: item.name).count.to_s+")"%></li>
+            <% end %>
         	</ul>
     </nav>
+    <nav>
+       <h3>Recent Post</h3>
+          <ul>
+            <% @articles_desc.each do |article| %>
+              <li><%= link_to article.title, article_show_url(name: article.user.name, article_id: article)%></li>
+            <% end %>
+          </ul>
+    </nav>
+    <nav>
+       <h3>Recent Comments</h3>
+          <ul>
+            <% @comments_desc.each do |comment| %>
+              <% article = Article.find(comment.article_id) %>
+              <li><%= link_to article.title, article_show_url(name: article.user.name, article_id: article)%>(<%= article.comments.count %>)<br>
+                <%= link_to comment.user,blog_path(name: comment.user)%><%=":"+comment.description%>
+              </li>
+            <% end %>
+          </ul>
+    </nav>      
 </section>

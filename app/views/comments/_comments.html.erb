@@ -3,7 +3,13 @@
       <section class="comment">
             <p><%= comment.description  %></p>
             <footer>
-            	<p><%= link_to comment.user, blog_path(name: comment.user)%> <%= "-----"+comment.created_at.localtime.strftime("%B %d %X %Y") %></p>
+            	<p><%= link_to comment.user, blog_path(name: comment.user)%> <%= "-----"+comment.created_at.localtime.strftime("%B %d %X %Y") %>
+              </p>
+              <% if(session[:blog_id] == session[:user_id]) %>
+                <p>
+                  <%= link_to "Delete", blog_delete_comment_path(article: current_view_obj,comment_id: comment), data: { confirm: 'Are you sure?' } %>
+                </p>
+              <% end %>
             </footer>
       </section>
 <% end %>

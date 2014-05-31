@@ -9,11 +9,20 @@ class BlogController < ApplicationController
         @articles = Article.find_all_by_user_id(@user.id)
         session[:blog_id] = @user.id
         @archive = Article.where(user_id: @user.id).select("year,month,count(id) as amount").group("year","month")
+        @category_list = Category.find_all_by_user_id(@user.id)
+        @articles_desc=Article.where(user_id: @user.id).limit(10)
+        @comments_desc=Comment.order("id desc").collect { |comment| 
+          if Article.find(comment.article_id).user_id == @user.id
+             comment
+          else
+             nil
+           end
+          }.compact
       end
     #view my blog
     elsif(session[:user_id] != nil)  
-      @user = User.find_by_id(session[:user_id])
-      redirect_to blog_path(name: @user.name)
+        @user = User.find_by_id(session[:user_id])
+        redirect_to blog_path(name: @user.name)
     else
       redirect_to login_url, notice: "Please log in"
     end
@@ -28,19 +37,34 @@ class BlogController < ApplicationController
     else
       @article = Article.find(session[:current_article_id])
     end
-    session[:blog_id] = User.find_by_name(params[:name])
+    session[:blog_id] = User.find_by_name(params[:name]).id
     @comment = Comment.new
   end
 
   #post a new article
   def post
     @article = Article.new
+    session[:article_post] = @article.id
     @category_list = Category.find_all_by_user_id(session[:user_id])
   end
 
   def edit_article
     @article = Article.find(params[:article_id])
+    session[:article_post] = params[:article_id]
     @category_list = Category.find_all_by_user_id(session[:user_id])
+  end
+
+  def delete_article
+    article = Article.find(params[:article_id])
+    article.destroy
+    redirect_to(blog_path(User.find_by_id(session[:blog_id]).name))
+  end
+
+  def delete_comment
+    article = Article.find(params[:article])
+    comment = article.comments.find(params[:comment_id])
+    comment.destroy
+    redirect_to(article_show_url(name: article.user.name, article_id: article))
   end
 
   def gallery
@@ -91,7 +115,8 @@ class BlogController < ApplicationController
       @category.name = params[:add_category_name]
       respond_to do |format|
       if @category.save
-        format.js {@category_list = Category.find_all_by_user_id(session[:user_id])}
+        format.js {@category_list = Category.find_all_by_user_id(session[:user_id])
+         }
       end
     end
 
@@ -99,14 +124,11 @@ class BlogController < ApplicationController
       @category = Category.find(params[:delete_category_id])
       @category.destroy 
       respond_to do |format|
-        format.js {@category_list = Category.find_all_by_user_id(session[:user_id])}
+        format.js {@category_list = Category.find_all_by_user_id(session[:user_id])
+          }
       end
     end
   end
 
-  def delete_article
-    article = Article.find(params[:article_id])
-    article.destroy
-    redirect_to(blog_path(User.find_by_id(session[:blog_id]).name))
-  end
+
 end

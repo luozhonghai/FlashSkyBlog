@@ -1,0 +1,6 @@
+<h1>Articles with category :<%= @categ %></h1>
+<ul>
+  <% @articles.each do |article| %>
+    <li><%= link_to article.title, article_show_url(name: article.user.name, article_id: article) %></li>
+  <% end %>
+</ul>

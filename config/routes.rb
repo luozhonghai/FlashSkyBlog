@@ -23,6 +23,7 @@ Blog::Application.routes.draw do
   post "blog/edit_category"
   get "blog/edit_category"
   get "blog/delete_article"
+  get "blog/delete_comment"
   resources :articles
 
 
@@ -42,7 +43,9 @@ Blog::Application.routes.draw do
     delete 'logout' => :destroy
     get 'register'
   end
-
+  controller :categories do
+    get 'blog/:name/categories' => 'categories#show', as: :category_show
+  end
   controller :blog do
     get 'blog/:name/show' => 'blog#show', as: :article_show
     get "blog/:name/post" => 'blog#post', as: :article_post
@@ -54,6 +57,8 @@ Blog::Application.routes.draw do
   end
 
   resources :tags
+  #resources :categories
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
