@@ -27,3 +27,10 @@ mainly bulid two visual templates with HTML and CSS.
 2014-5-23
 1. show published(created) time of articles.
 2. add login and register related function. add sessions_controller and users_controller.Users can register repective blogs and view others's page through url(/blog/:name/...).
+
+2014-5-31
+1. add "tag" property and "category" property for articles, and corresponding edit/search function.
+2. logged in user can edit or delete its articles and delete comments.
+3. validate archive list , category list,recent articles list and recent comments list at blog index page.
+4. change the form of post comment: before submit comment , user should log in.
+5. guest can browse interested blog list at login page.
