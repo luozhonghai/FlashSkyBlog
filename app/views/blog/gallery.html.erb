@@ -1,21 +1,41 @@
 <% if(session[:blog_id] == session[:user_id]) %>
+<div class="picture_form">
+  <fieldset>
 <%= form_for(:picture,
-			url: {action: 'save'},
-			html: {multipart: true}
-			) do |form| %>
+      url: {action: 'save'},
+      html: {multipart: true}
+      ) do |form| %>
+    <div>
+    <%= form.label "Title:" %><br><%= form.text_field(:title) %>
+    </div>
+    <div>
+    <%= form.label "Upload picture:" %><br><%= form.file_field(:file) %>
+    </div>
 
-    Title:          <%= form.text_field(:title) %><br/>  
-	Upload picture: <%= form.file_field(:file) %><br/>
-
-	<%= submit_tag("Upload picture") %>
+  <%= submit_tag("Upload picture") %>
 <% end %>
+</fieldset>
+</div> 
 <% end %>
 
 <ul class="gallery">
 <% @pictures.each do |picture| %>
-	<li>
-	<%= link_to(image_tag(url_for(action: 'picture', id: picture.id)), album_show_url(id: picture.id, name: @user.name)) %>
-	<span><%= picture.title %></span>
-	</li>
+  <li>
+  <%= link_to(image_tag(url_for(action: 'picture', id: picture.id)), album_show_url(id: picture.id, name: @user.name)) %>
+  <span><%= picture.title %></span><br>
+  <% if(session[:blog_id] == session[:user_id]) %>
+  <span><%= link_to 'Delete', blog_delete_picture_path(id: picture.id), method: :delete, data: { confirm: 'Are you sure?' } %></span><br>
+  <span><%= link_to 'Edit', blog_edit_picture_path(id: picture.id),remote: true  %></span>
+  <% end %>
+  </li>
 <% end %>
 </ul>
+
+<div id="dialog" title="Edit Picture">
+</div>
+<script type="text/javascript">
+            $( "#dialog" ).dialog({
+              autoOpen: false,
+              modal: true,
+            });
+</script>

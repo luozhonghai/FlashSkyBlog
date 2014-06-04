@@ -1,0 +1,15 @@
+<h3>MESSAGES</h3>
+     <% current_view_obj.messages.each do |message| %>
+      <section class="comment">
+            <p><%= message.description  %></p>
+            <footer>
+              <p><%= link_to message.user_name, blog_path(name: message.user_name)%> <%= "-----"+message.created_at.localtime.strftime("%B %d %X %Y") %>
+              </p>
+              <% if(session[:blog_id] == session[:user_id]) %>
+                <p>
+                  <%= link_to "Delete", blog_delete_comment_path(name:message.user.name, user: message.user,comment_id: message), data: { confirm: 'Are you sure?' } %>
+                </p>
+              <% end %>
+            </footer>
+      </section>
+<% end %>

@@ -1,0 +1,10 @@
+<section id="postcomments">
+  <h3>POST A MESSAGE</h3>
+  <div id="formcontent">
+    <%= render(partial: "messages/formlogin", locals: {message: @message}) %>
+  </div>
+</section>
+
+<section id="comments">
+   <%=  render(partial: "messages/messages", locals: {current_view_obj:@user } ) %>
+</section>

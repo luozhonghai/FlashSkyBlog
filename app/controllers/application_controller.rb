@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
   protected
     #avoid post article throudh wrong url
     def authorize_post
-      user_login = User.find_by(id: session[:user_id])
-      user_blog = User.find_by_name(params[:name])
+      user_login = User.find(session[:user_id])
+      user_blog = User.find_by(name: params[:name])
       unless (user_login and user_login == user_blog)
         redirect_to login_url, notice: "Please log in"
       end

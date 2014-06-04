@@ -1,17 +1,17 @@
 class BlogController < ApplicationController
   include BlogHelper
-  before_action :authorize_post, only: :post
+  before_action :authorize_post, only: [:post, :edit_article, :delete_article, :delete_comment]
   def index
     #view a certain blog
     if(params[:name] != nil)
-      @user = User.find_by_name(params[:name])
+      @user = User.find_by(name: params[:name])
       if(@user)
-        @articles = Article.find_all_by_user_id(@user.id)
+        @articles = @user.articles
         session[:blog_id] = @user.id
-        @archive = Article.where(user_id: @user.id).select("year,month,count(id) as amount").group("year","month")
-        @category_list = Category.find_all_by_user_id(@user.id)
-        @articles_desc=Article.where(user_id: @user.id).limit(10)
-        @comments_desc=Comment.order("id desc").collect { |comment| 
+        @archive = @user.articles.select("year,month,count(id) as amount").group("year","month")
+        @category_list = Category.where(user_id:@user.id)
+        @articles_desc=@user.articles.order("id desc").limit(10)
+        @comments_desc =Comment.order("id desc").collect { |comment| 
           if Article.find(comment.article_id).user_id == @user.id
              comment
           else
@@ -21,7 +21,7 @@ class BlogController < ApplicationController
       end
     #view my blog
     elsif(session[:user_id] != nil)  
-        @user = User.find_by_id(session[:user_id])
+        @user = User.find(session[:user_id])
         redirect_to blog_path(name: @user.name)
     else
       redirect_to login_url, notice: "Please log in"
@@ -37,7 +37,7 @@ class BlogController < ApplicationController
     else
       @article = Article.find(session[:current_article_id])
     end
-    session[:blog_id] = User.find_by_name(params[:name]).id
+    session[:blog_id] = User.find_by(name: params[:name]).id
     @comment = Comment.new
   end
 
@@ -45,31 +45,71 @@ class BlogController < ApplicationController
   def post
     @article = Article.new
     session[:article_post] = @article.id
-    @category_list = Category.find_all_by_user_id(session[:user_id])
+    @category_list = Category.where(user_id: session[:user_id])
   end
 
   def edit_article
     @article = Article.find(params[:article_id])
     session[:article_post] = params[:article_id]
-    @category_list = Category.find_all_by_user_id(session[:user_id])
+    @category_list = Category.where(user_id: session[:user_id])
   end
 
   def delete_article
+    user_name = article.user.name
     article = Article.find(params[:article_id])
     article.destroy
-    redirect_to(blog_path(User.find_by_id(session[:blog_id]).name))
+    redirect_to(blog_path(user_name))
   end
 
   def delete_comment
-    article = Article.find(params[:article])
-    comment = article.comments.find(params[:comment_id])
-    comment.destroy
-    redirect_to(article_show_url(name: article.user.name, article_id: article))
+    if (params[:article] != nil)
+      article = Article.find(params[:article])
+      comment = article.comments.find(params[:comment_id])
+      comment.destroy
+      redirect_to(article_show_url(name: article.user.name, article_id: article))
+    end
+    if (params[:picture] != nil)
+      picture = Picture.find(params[:picture])
+      comment = picture.pic_comments.find(params[:comment_id])
+      comment.destroy
+      redirect_to(album_show_url(name: picture.user.name, id: picture))
+    end
+    if (params[:user] != nil)
+      user = User.find(params[:user])
+      comment = user.messages.find(params[:comment_id])
+      comment.destroy
+      redirect_to(message_show_url(name: user.name))
+    end
+  end
+
+  def edit_picture
+    @picture = Picture.find(params[:id])
+    session[:picture_id] = params[:id]
+    respond_to do |format|
+        format.js {}
+    end
+  end
+
+  def update_picture
+    if (params[:picture]!=nil)
+      @picture = Picture.find(session[:picture_id])
+      @picture.title = params[:picture][:title]
+      @picture.description = params[:picture][:description]
+      @picture.save
+      redirect_to(gallery_show_url(name: @picture.user.name))    
+    end
+  end
+
+  def delete_picture
+    picture = Picture.where(user_id: session[:user_id]).find(params[:id])
+    user_name = picture.user.name
+    picture.destroy
+    redirect_to(gallery_show_url(name: user_name))
   end
 
   def gallery
-    @user = User.find_by_name(params[:name])
-    @pictures = Picture.find_all_by_user_id(@user.id)
+    @user = User.find_by(name: params[:name])
+    @pictures = @user.pictures
     session[:blog_id] = @user.id
   end
 
@@ -99,12 +139,15 @@ class BlogController < ApplicationController
   end
 
   def album
-    @user = User.find_by_name(params[:name])
+    @user = User.find_by(name: params[:name])
     @picture = Picture.where(user_id: @user.id).find(params[:id])
+    session[:blog_id] = User.find_by(name: params[:name]).id
+    @pic_comment = PicComment.new
+    session[:current_pic_id] = params[:id]
   end
 
   def archive
-    @user = User.find_by_name(params[:name])
+    @user = User.find_by(name: params[:name])
     @articles = Article.where(user_id: @user.id, month: params[:month], year: params[:year])
   end
 
@@ -128,6 +171,12 @@ class BlogController < ApplicationController
           }
       end
     end
+  end
+
+  def message
+    @user = User.find_by(name: params[:name])
+    @message = Message.new
+    session[:blog_id] = @user.id
   end
 
 

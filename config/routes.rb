@@ -2,6 +2,10 @@ Blog::Application.routes.draw do
 
 
 
+  resources :messages
+
+  resources :pic_comments
+
   get "sessions/create"
   get "sessions/destroy"
   resources :users
@@ -24,6 +28,9 @@ Blog::Application.routes.draw do
   get "blog/edit_category"
   get "blog/delete_article"
   get "blog/delete_comment"
+  delete "blog/delete_picture"
+  get "blog/edit_picture"
+  patch "blog/update_picture"
   resources :articles
 
 
@@ -54,6 +61,7 @@ Blog::Application.routes.draw do
     get "blog/:name/gallery" => 'blog#gallery', as: :gallery_show
     post "blog/:name/gallery" =>'blog#gallery', as: :gallery_post
     get "blog/:name/album" => 'blog#album', as: :album_show
+    get "blog/:name/messages" => 'blog#message', as: :message_show
   end
 
   resources :tags

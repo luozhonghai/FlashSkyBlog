@@ -9,7 +9,7 @@ Article.delete_all
 
 Article.create!(
 	user_id: 1,
-	month: 'February',
+	month: 'January',
 	year: '2014',
 	title: 'Setting an Appropriate Tone for Your Game',
 	content: 
@@ -24,7 +24,7 @@ Article.create!(
 
 Article.create!(
 	user_id: 1,
-	month: 'January',
+	month: 'February',
 	year: '2014',
 	title: 'Appropriate Tone for Your Game',
 	content: 

@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many  :articles, dependent: :destroy
   has_many  :pictures, dependent: :destroy
+  has_many  :messages, dependent: :destroy
   validates :name, :email, presence: true, uniqueness: true
   has_secure_password
 
@@ -10,5 +11,9 @@ class User < ActiveRecord::Base
 
   def add_picture(inpicture)
     pictures<<inpicture
+  end
+
+  def add_message(inmessage)
+    messages<<inmessage
   end
 end

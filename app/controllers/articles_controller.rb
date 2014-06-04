@@ -27,7 +27,7 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
     @article.month = Time.now.localtime.strftime("%B")
     @article.year = Time.now.localtime.strftime("%Y")
-    user = User.find_by_id(session[:user_id])
+    user = User.find(session[:user_id])
     respond_to do |format|
       if @article.save
         user.add_article(@article)

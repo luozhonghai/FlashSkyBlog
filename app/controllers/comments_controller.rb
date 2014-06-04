@@ -29,7 +29,7 @@ class CommentsController < ApplicationController
     if(session[:user_id] != nil)
       @comment = Comment.new(comment_params)
     else
-      user = User.find_by_name(params[:name])
+      user = User.find(name: params[:name])
       @comment = Comment.new
       if user and user.authenticate(params[:password])
         session[:user_id] = user.id

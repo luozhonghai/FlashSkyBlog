@@ -1,22 +1,41 @@
 
-<div id="album">
-			<div id="gallery_image">
-				<img id="my_image" src="<%=  url_for(action: 'picture', id: @picture.id) %>" alt="">
-			</div>
-			<div id="gallery_prev">
-				<% pic = prev_picture(@picture.id)%>
-				<% if pic != nil %>
+<section id="album_sect">
+	<h3>Album</h3>
+	<div id="album">
+		<div id="gallery_image">
+			<img id="my_image" src="<%=  url_for(action: 'picture', id: @picture.id) %>" alt="">
+		</div>
+		<div id="gallery_prev">
+			<% pic = prev_picture(@picture.id)%>
+			<% if pic != nil %>
 				&laquo; <%= link_to 'Prev', album_show_url(id: pic, name: @user.name) %>	
-				<% end %>				
-			</div>
-			<div id="gallery_next">
-				<% pic = next_picture(@picture.id)%>
-				<% if pic != nil %>
-				<%= link_to 'Next', album_show_url(id: pic, name: @user.name) %> &raquo;
-				<% end %>
-			</div>
-			<div id="gallery_title">
-				<%= @picture.title %>
-			</div>
+			<% end %>				
+		</div>
+		<div id="gallery_next">
+			<% pic = next_picture(@picture.id)%>
+			<% if pic != nil %>
+			<%= link_to 'Next', album_show_url(id: pic, name: @user.name) %> &raquo;
+			<% end %>
+		</div>
+		<div id="gallery_title">
+			<%= @picture.title %>
+		</div>
+	</div>
+	<div id="gallery_description">
+		<%= @picture.description %>
 </div>
+</section>
+
+<section id="comments">
+   <%=  render(partial: "pic_comments/pic_comments", locals: {current_view_obj:@picture } ) %>
+</section>
+
+
+
+<section id="postcomments">
+	<h3>POST A COMMENT</h3>
+	<div id="formcontent">
+		<%= render(partial: "pic_comments/pic_formlogin", locals: {comment: @pic_comment}) %>
+	</div>
+</section>
 
