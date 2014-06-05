@@ -34,3 +34,8 @@ mainly bulid two visual templates with HTML and CSS.
 3. validate archive list , category list,recent articles list and recent comments list at blog index page.
 4. change the form of post comment: before submit comment , user should log in.
 5. guest can browse interested blog list at login page.
+
+2014-6-5
+1. add comments board for album(pictures) and message board for blog.
+2. can edit and delete picture , can add description for a picture.
+3. when forgetting his password, user can reset the password by clicking link sent to his registered email.
