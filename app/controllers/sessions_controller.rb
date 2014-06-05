@@ -22,4 +22,27 @@ class SessionsController < ApplicationController
   def register
     @user = User.new
   end
+
+  def find_password
+    if (params[:error] != nil)
+       @e = params[:error]
+      render "find_password"
+    end
+  end
+
+  def send_mail
+    @user = User.find_by(name: params[:user_name])
+    if(@user != nil)
+      @mail_str = @user.email
+      @mail_key = SecureRandom.hex(10)
+      UserNotifier.reset_password(@mail_str,@user,@mail_key).deliver
+    else
+      @e = "true"
+      redirect_to find_password_url(error: @e)
+    end
+  end
+
+  def reset_password
+    
+  end
 end

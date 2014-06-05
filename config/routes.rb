@@ -49,6 +49,9 @@ Blog::Application.routes.draw do
     post 'login' => :create
     delete 'logout' => :destroy
     get 'register'
+    get 'find_password'
+    post 'send_mail'
+    get 'reset_password'
   end
   controller :categories do
     get 'blog/:name/categories' => 'categories#show', as: :category_show
