@@ -21,8 +21,8 @@ class BlogController < ApplicationController
       end
     #view my blog
     elsif(session[:user_id] != nil)  
-        @user = User.find(session[:user_id])
-        redirect_to blog_path(name: @user.name)
+      @user = User.find(session[:user_id])
+      redirect_to blog_path(name: @user.name)
     else
       redirect_to login_url, notice: "Please log in"
     end
@@ -158,8 +158,7 @@ class BlogController < ApplicationController
       @category.name = params[:add_category_name]
       respond_to do |format|
       if @category.save
-        format.js {@category_list = Category.find_all_by_user_id(session[:user_id])
-         }
+        format.js {@category_list = Category.find_all_by_user_id(session[:user_id])}
       end
     end
 

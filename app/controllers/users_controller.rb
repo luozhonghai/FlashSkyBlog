@@ -28,10 +28,12 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        #format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to register_notice_url(id: @user) }
         format.json { render action: 'show', status: :created, location: @user }
       else
-        format.html { render action: 'new' }
+        #format.html { render action: 'new' }
+        format.html { render 'sessions/register' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -40,12 +42,15 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    @user.verify_key = nil
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        #format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to new_password_url(id: @user) }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
+        #format.html { render action: 'edit' }
+        format.html { render 'sessions/reset_password'}
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -69,6 +74,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :password, :password_confirmation, :email)
+      params.require(:user).permit(:name, :password, :password_confirmation, :email, :verify_key)
     end
 end

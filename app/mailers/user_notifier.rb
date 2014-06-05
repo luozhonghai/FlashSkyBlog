@@ -9,7 +9,8 @@ class UserNotifier < ActionMailer::Base
   def reset_password(mail_str,user,key)
     @greeting = "Hi"
     @pw_key = key
-    @user = user.id
-    mail to: mail_str
+    @user = user
+    subject = @user.name+',please reset your password'
+    mail to: mail_str, subject: subject
   end
 end

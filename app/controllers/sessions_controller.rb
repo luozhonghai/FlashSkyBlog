@@ -34,8 +34,10 @@ class SessionsController < ApplicationController
     @user = User.find_by(name: params[:user_name])
     if(@user != nil)
       @mail_str = @user.email
-      @mail_key = SecureRandom.hex(10)
-      UserNotifier.reset_password(@mail_str,@user,@mail_key).deliver
+      @user_key = SecureRandom.hex(10)
+      @user.verify_key = @user_key
+      @user.save!
+      UserNotifier.reset_password(@mail_str,@user,@user_key).deliver
     else
       @e = "true"
       redirect_to find_password_url(error: @e)
@@ -43,6 +45,23 @@ class SessionsController < ApplicationController
   end
 
   def reset_password
-    
+    if(params[:user_id] !=nil and params[:key] != nil)
+      @user = User.find(params[:user_id])
+      @key = params[:key]
+      if(@user.verify_key != @key)
+        redirect_to login_url
+      else
+      end
+    else
+      redirect_to login_url
+    end
+  end
+
+  def new_password
+    @user = User.find(params[:id])
+  end
+
+  def register_notice
+    @user = User.find(params[:id])
   end
 end

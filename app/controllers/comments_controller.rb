@@ -52,9 +52,7 @@ class CommentsController < ApplicationController
       else
        # format.html { render action: 'new' }
         format.html { render partial: "form",  locals: {comment: @comment}} #doesn`t work when use ajax(remote:true)!
-        format.js {
-                   #@comment = Comment.new
-                   @e=true }   # work when use ajax(remote:true)! and write two lines
+        format.js { @e=true }   
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
